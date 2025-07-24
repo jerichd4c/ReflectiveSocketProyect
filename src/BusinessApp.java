@@ -49,61 +49,115 @@ public class BusinessApp {
 
     private static void testCalculator (ClientLibrary lib, Scanner sc) {
 
-        System.out.println("Ingrese dos números para la suma:");
-       
-        System.out.print("Ingrese el primer número: ");
-        int add1= sc.nextInt();
-        System.out.print("Ingrese el segundo número: ");
-        int add2= sc.nextInt();
+           lib = new ClientLibrary("localhost", 5000);
 
-        // this is where the method is really tested
+        while (true) {
 
-        System.out.println("[CLIENTE] Suma: " + lib.callMethod("Calculator", "add", new Object[] {add1, add2}, new Class[] {int.class, int.class}));
+            System.out.println("\nSelecciona una operación\n");
+            System.out.println("1. Sumar");
+            System.out.println("2. Restar");   
+            System.out.println("3. Dividir");
+            System.out.println("4. Salir");
+            System.out.print("\nOpción: ");
+            
+            int choice = sc.nextInt();
+            if (choice == 4) break;
 
-        System.out.println("Ingrese dos números para la resta:");
-    
-        System.out.print("Ingrese el primer número: ");
-        int sub1= sc.nextInt();
-        System.out.print("Ingrese el segundo número: ");
-        int sub2= sc.nextInt();
+            // adding this so it doesnt run all the methods in a row
 
-        // this is where the method is really tested
+            String methodName = "";
+            Class<?>[] paramTypes = null;
+            Object[] params = new Object[2];
 
-        System.out.println("[CLIENTE] Resta: " + lib.callMethod("Calculator", "substract", new Object[] {sub1, sub2}, new Class[] {int.class, int.class}));
+            switch (choice) {
 
-        System.out.println("Ingrese dos números para la division:");
- 
-        System.out.print("Ingrese el primer número: ");
-        double div1= sc.nextDouble();
-        System.out.print("Ingrese el segundo número: ");
-        double div2= sc.nextDouble();
+            case 1:  
 
-        // this is where the method is really tested
+                methodName = "add";
+                paramTypes = new Class[] {int.class, int.class};
+                System.out.println("Ingrese primer numero: ");
+                params[0] = sc.nextInt();
+                System.out.println("Ingrese segundo numero: ");
+                params[1] = sc.nextInt();
+                break;
 
-        System.out.println("[CLIENTE] Division: " + lib.callMethod("Calculator", "divide", new Object[] {div1, div2}, new Class[] {double.class, double.class}));
+            case 2:
+                
+                methodName = "substract";
+                paramTypes = new Class[]{int.class, int.class};
+                System.out.print("Ingrese primer número: ");
+                params[0] = sc.nextInt();
+                System.out.print("Ingrese segundo número: ");
+                params[1] = sc.nextInt();
+                break;
 
+            case 3:
+                
+                methodName = "divide";
+                paramTypes = new Class[]{double.class, double.class};
+                System.out.print("Ingrese primer número: ");
+                params[0] = sc.nextDouble();
+                System.out.print("Ingrese segundo número: ");
+                params[1] = sc.nextDouble();
+                break;
+
+            default:
+                System.out.println("Opción no válida.");
+                continue; // skip to the next iteration of the loop
+
+        }
+
+            // now with the method selected, calls the method in the server
+
+            String result = lib.callMethod("Calculadora", methodName, params, paramTypes);
+            System.out.println("Resultado: " + result);
+        }
     }
 
     private static void testTextModifier(ClientLibrary lib, Scanner sc) {
         
         lib = new ClientLibrary("localhost", 5001);
 
-        sc.nextLine(); // clean buffer so it doesnt read the leftover thext of another class/method
+        while (true) { 
 
-        // invert text test
-        System.out.print("Ingrese el texto a invertir: ");
-        String invertedText = sc.nextLine();
-        System.out.println("[CLIENTE] Texto invertido: " + lib.callMethod("TextModifier", "invertText", new Object[] {invertedText}, new Class[] {String.class}));
+            System.out.println("\nSelecciona una opción\n");
+            System.out.println("1. Invertir");
+            System.out.println("2. Poner en mayúsculas");
+            System.out.println("3. Poner en minúsculas");
+            System.out.println("4. Salir");
+            System.out.print("\nOpción: ");
+            
+            int choice = sc.nextInt();
+            if (choice == 4) break;
 
-        // put all letter to uppercase
-        System.out.print("Ingrese el texto a poner en mayusculas: ");
-        String upperText = sc.nextLine();
-        System.out.println("[CLIENTE] Texto en mayusculas: " + lib.callMethod("TextModifier", "editUpper", new Object[] {upperText}, new Class[] {String.class}));
+             sc.nextLine(); // clean buffer so it doesnt read the leftover thext of another class/method
 
-        // put all letter to lowercase
-        System.out.print("Ingrese el texto a poner en minusculas: ");
-        String lowerText = sc.nextLine();
-        System.out.println("[CLIENTE] Texto en minusculas: " + lib.callMethod("TextModifier", "editLower", new Object[] {lowerText}, new Class[] {String.class}));
+              System.out.print("Ingrese el texto a modificar: ");
+              String text = sc.nextLine();
+
+            String methodName = "";
+            Class<?>[] paramTypes = {String.class}; // type of the parameter: string
+            Object[] params = {text}; // value of the parameter
+
+             switch (choice) {
+                case 1: 
+                    methodName = "invertText";
+                    break;
+                case 2:
+                    methodName = "editUpper";
+                    break;
+                case 3:
+                    methodName = "editLower";
+                    break;
+                default:
+                    System.out.println("Opción inválida");
+                    continue;
+            }
+
+            String result = lib.callMethod("TextUtils", methodName, params, paramTypes);
+            System.out.println("Resultado: " + result);
+            
+        }
 
     }
 
@@ -111,22 +165,48 @@ public class BusinessApp {
         
         lib = new ClientLibrary("localhost", 5002);
 
-        // c to f test
+         while (true) { 
 
-        System.out.print("Ingrese la temperatura en Celsius: ");
-        double celsius = sc.nextDouble();
-        System.out.println("[CIENTE] Temperatura en Fahrenheit: " + lib.callMethod("Converter", "celsiusToFahrenheit", new Object[] {celsius}, new Class[] {double.class}));
+            System.out.println("\nSelecciona una opción\n");
+            System.out.println("1. celsius a fahrenheit");
+            System.out.println("2. fahrenheit a celsius");
+            System.out.println("3. kilometros a millas");
+            System.out.println("4. Salir");
+            System.out.print("\nOpción: ");
+            
+            int choice = sc.nextInt();
+            if (choice == 4) break;
+            
 
-        // f to c test
+            String methodName = "";
+            Class<?>[] paramTypes = {double.class}; // type of the parameter: string
+            Object[] params = new Object[1]; // value of the parameter
 
-        System.out.print("Ingrese la temperatura en Fahrenheit: ");
-        double fahrenheit = sc.nextDouble();
-        System.out.println("[CLIENTE] Temperatura en Celsius: " + lib.callMethod("Converter", "fahrenheitToCelsius", new Object[] {fahrenheit}, new Class[] {double.class}));
+             switch (choice) {
+                case 1: 
+                    methodName = "celsiusToFahrenheit";
+                    System.out.print("Ingrese grados celcius: ");
+                    params[0] = sc.nextDouble();
+                    break;
+                case 2:
+                    methodName = "fahrenheitToCelsius";
+                    System.out.print("Ingrese grados fahrenheit: ");
+                    params[0] = sc.nextDouble();
+                    break;
+                case 3:
+                    methodName = "celsiusToKelvin";
+                    System.out.print("Ingrese grados celcius: ");
+                    params[0] = sc.nextDouble();
+                    break;
+                default:
+                    System.out.println("Opción inválida");
+                    continue;
+            }
 
-        // c to k test
+            String result = lib.callMethod("Converter", methodName, params, paramTypes);
+            System.out.println("Resultado: " + result);
+            
+        }
 
-        System.out.print("Ingrese la temperatura en Celsius: ");
-        celsius = sc.nextDouble();
-        System.out.println("[CLIENTE] Temperatura en Kelvin: " + lib.callMethod("Converter", "celsiusToKelvin", new Object[] {celsius}, new Class[] {double.class}));
     }
 }
