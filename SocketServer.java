@@ -1,6 +1,6 @@
 import java.io.*;
-import java.lang.reflect.*;
-import java.net.*; //library for reflection
+import java.lang.reflect.*; //library for reflection
+import java.net.*; 
 import java.util.Arrays;
 
 class SocketServer {
@@ -32,7 +32,7 @@ class SocketServer {
 
                         // debug 
 
-                        System.out.println("[SERVIDOR] recibiendo del cliente los siguientes datos: " + requestData);
+                        System.out.println("[SERVER] recibiendo del cliente los siguientes datos: " + requestData);
 
 
 

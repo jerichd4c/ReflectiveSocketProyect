@@ -1,4 +1,4 @@
-class Calculadora { // test class No. 1
+class Calculator { // test class No. 1
 
     public int add(int a, int b) {
               return a + b;
