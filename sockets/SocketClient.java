@@ -1,7 +1,9 @@
+package sockets;
+
 import java.io.*;
 import java.net.*;
 
-class SocketClient {
+public class SocketClient {
     private String serverAdress;
     private int serverPort;
 
@@ -13,6 +15,8 @@ class SocketClient {
 
     // method to send a request to the server (socketServer)
     
+    // requestData: is the data sent, not a method
+
     public String sendRequest(String requestData) {
         // creates a new socket conn to the server
         try (Socket socket = new Socket(serverAdress, serverPort);

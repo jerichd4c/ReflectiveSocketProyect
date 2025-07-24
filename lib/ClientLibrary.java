@@ -1,5 +1,7 @@
+package lib;
+import sockets.*;
 
-class ClientLibrary {
+public class ClientLibrary {
     private SocketClient client;
 
     // constructor for the ClientLibrary

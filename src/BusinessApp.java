@@ -1,5 +1,10 @@
+package src;
+
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
+import lib.ClientLibrary; // library for the client
+import sockets.*; //socket server and client
+import testclasses.*; // test classes and methods
 
 public class BusinessApp {
     public static void main(String[] args) throws IOException {

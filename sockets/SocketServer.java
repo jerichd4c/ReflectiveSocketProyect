@@ -1,9 +1,11 @@
+package sockets;
+
 import java.io.*;
 import java.lang.reflect.*; //library for reflection
 import java.net.*; 
-import java.util.Arrays;
+import java.util.*;
 
-class SocketServer {
+public class SocketServer {
     private int port;
     private ServerSocket serverSocket;
     private Object businessObject; // this could be any object that handles business logic (calcs, db queries, etc.)
